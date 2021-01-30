@@ -25,7 +25,7 @@ int main(int argc, char *argv[])
 		{
 			str = argv[i];
 			while(*str)
-				std::cout << toupper(str++);
+				std::cout << (char)toupper(*str++);
 		}
 	std::cout << std::endl;
 	return (0);
