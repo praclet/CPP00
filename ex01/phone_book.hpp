@@ -6,7 +6,7 @@
 /*   By: praclet <praclet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 08:37:33 by praclet           #+#    #+#             */
-/*   Updated: 2021/01/31 09:16:25 by praclet          ###   ########lyon.fr   */
+/*   Updated: 2021/01/31 09:49:30 by praclet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,33 @@
 
 # include "contact.hpp"
 
-class Phone_book.hpp
+class Phone_book
 {
 	public:
 				Phone_book(void) : nb_contacts(0)
-				{};
-		int		is_full()
-				{return (nb_contacts < 8);};
+				{
+				};
+		int		is_full() const
+				{
+					return (nb_contacts >= sizeof(phone_book)/sizeof(*phone_book));
+				};
 		void	add(Contact contact)
-				{phone_book[nb_contact++] = contact;};
-		contact& operator[](std::size_t i)
-				{return (phone_book[i]);};
-		const contact& operator[](std::size_t i) const
-				{return (phone_book[i]);};
-
+				{
+					if (nb_contacts < sizeof(phone_book)/sizeof(*phone_book))
+						phone_book[nb_contacts++] = contact;
+				};
+		Contact& operator[](std::size_t i)
+				{
+					return (i < nb_contacts ? phone_book[i] : vide);
+				};
+		const Contact& operator[](std::size_t i) const
+				{
+					return (i < nb_contacts ? phone_book[i] : vide);
+				};
 	private:
-		int		nb_contacts;
-		Contact	phone_book[8];
+		static Contact	vide;
+		std::size_t		nb_contacts;
+		Contact			phone_book[8];
 };
 
 #endif
