@@ -13,7 +13,7 @@ RM			:=	rm -f
 .PHONY		:	all clean fclean re
 
 all $(NAME)	: $(SRCS)
-	$(CC) $(CFLAGS) -c $< -o $(NAME)
+	$(CC) $(CFLAGS) $^ -o $(NAME)
 	echo './$(NAME) completed.'
 
 clean fclean		:
