@@ -6,7 +6,7 @@
 /*   By: praclet <praclet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 10:57:52 by praclet           #+#    #+#             */
-/*   Updated: 2021/03/08 14:50:14 by praclet          ###   ########lyon.fr   */
+/*   Updated: 2021/03/08 16:49:47 by praclet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ void add_contact(Phone_book *pb)
 
 void search_contact(Phone_book *pb)
 {
-	std::size_t i;
+	int i;
+	size_t j;
 	Contact	*tmp;
 
 	if (pb->length() <=0)
@@ -67,10 +68,10 @@ void search_contact(Phone_book *pb)
 	std::cout << '|' << std::endl;
 	std::cout << std::setfill('-') << std::setw(45) << '-' << std::endl;
 	std::cout << std::setfill(' ') << std::right ;
-	for (i=0;i < pb->length();i++)
+	for (std::size_t j=0;j < pb->length();j++)
 	{
-		std::cout << '|' << std::setw(10) << std::to_string(i);
-		tmp = pb->getContact(i);
+		std::cout << '|' << std::setw(10) << std::to_string(j);
+		tmp = pb->getContact(j);
 		if (tmp)
 			std::cout << *tmp;
 		std::cout << '|' << std::endl;
@@ -78,10 +79,11 @@ void search_contact(Phone_book *pb)
 	std::cout << std::setfill('-') << std::setw(45) << '-' << std::endl;
 	std::cout << "Which contact do you wish to see? > ";
 	std::cin >> i;
-	if (i < pb->length())
-		pb->getContact(i)->printDetails();
+	j = i;
+	if (j < pb->length())
+		pb->getContact(j)->printDetails();
 	else
-		std::cout << "Couldn't retrieve that user!";
+		std::cout << "Couldn't retrieve that user!" << std::endl;
 }
 
 void usage(void)
