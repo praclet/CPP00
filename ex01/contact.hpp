@@ -6,7 +6,7 @@
 /*   By: praclet <praclet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 08:43:31 by praclet           #+#    #+#             */
-/*   Updated: 2021/01/31 10:40:48 by praclet          ###   ########lyon.fr   */
+/*   Updated: 2021/03/08 14:38:35 by praclet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define CONTACT_HPP
 
 # include <string>
+# include <ostream>
 
 class Contact
 {
@@ -29,6 +30,8 @@ class Contact
 		std::string favorite_meal;
 		std::string underwear_color;
 		std::string darkest_secret;
+		void printDetails(void);
+		friend std::ostream& operator<<(std::ostream& os, const Contact& ct);
 };
 
 #endif

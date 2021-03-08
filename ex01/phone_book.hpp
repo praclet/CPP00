@@ -6,7 +6,7 @@
 /*   By: praclet <praclet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 08:37:33 by praclet           #+#    #+#             */
-/*   Updated: 2021/03/07 11:43:29 by praclet          ###   ########lyon.fr   */
+/*   Updated: 2021/03/08 13:53:46 by praclet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,27 +23,22 @@ class Phone_book
 			};
 		int	is_full() const
 			{
-				return (nb_contacts >= sizeof(phone_book)/sizeof(*phone_book));
+				return (nb_contacts >= sizeof(phone_book)/sizeof(phone_book[0]));
 			};
 		void	add(Contact *contact)
 			{
-				if (nb_contacts < sizeof(phone_book)/sizeof(*phone_book))
+				if (!this->is_full())
 					phone_book[nb_contacts++] = *contact;
 			};
-		Contact&	operator[](std::size_t i)
+		Contact*	getContact(std::size_t i)
 			{
-				return (0 <= i && i < nb_contacts ? phone_book[i] : vide);
-			};
-		const Contact&	operator[](std::size_t i) const
-			{
-				return (0 <= i && i < nb_contacts ? phone_book[i] : vide);
+				return (i < nb_contacts ? phone_book + i : NULL);
 			};
 		std::size_t	length(void) const
 			{
 				return (nb_contacts);
 			};
 	private:
-		static Contact	vide;
 		std::size_t		nb_contacts;
 		Contact			phone_book[8];
 };
