@@ -6,7 +6,7 @@
 /*   By: praclet <praclet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 10:57:52 by praclet           #+#    #+#             */
-/*   Updated: 2021/03/07 11:11:08 by praclet          ###   ########lyon.fr   */
+/*   Updated: 2021/03/07 11:40:20 by praclet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,23 @@
 #include <iostream>
 #include <string>
 
-void add_data(char *data_name, std::string *data)
+void add_data(std::string data_name, std::string *data)
 {
-	cout << "Enter " << data_name << ": ";
-	cin >> *data;
+	std::cout << "   Enter " << data_name << ": ";
+	std::cin >> *data;
 }
 
-void add_contact(Phone_book &pb)
+void add_contact(Phone_book *pb)
 {
 	Contact	ct;
 
 	if (pb->is_full())
 	{
-		cout << "Phone book is full. Can't add any contact." << std::endl;
+		std::cout << "Phone book is full. Can't add any contact." << std::endl;
 		return;
 	}
-	cout << "Adding a new contact." << std::endl;
-	cout << "Please provide the following informations:" << std::endl;
+	std::cout << "Adding a new contact." << std::endl;
+	std::cout << "Please provide the following informations:" << std::endl;
 	add_data("first name", &ct.first_name);
 	add_data("last name", &ct.last_name);
 	add_data("nickname", &ct.nickname);
@@ -44,11 +44,12 @@ void add_contact(Phone_book &pb)
 	add_data("underwear color", &ct.underwear_color);
 	add_data("darkest secret", &ct.darkest_secret);
 	pb->add(&ct);
+	std::cout << "New contact added." << std::endl;
 }
 
-void search_contact(Phone_book &pb)
+void search_contact(Phone_book *pb)
 {
-	;
+	(void)pb;
 }
 
 int main(void)
@@ -58,31 +59,32 @@ int main(void)
 	Phone_book	pb;
 
 	end = 0;
-	cout << "Hi!" << std:endl;
+	std::cout << "Hi!" << std::endl;
 	do
 	{
-		cout << "What next? > ";
-		cin >> cmd;
-		switch (cmd)
+		std::cout << "What next? > ";
+		std::cin >> cmd;
+		if (cmd == "SEARCH")
+			search_contact(&pb);
+		else
 		{
-			case "SEARCH" :
-				search_contact(&pb);
-				break;
-			case "ADD" :
+			if (cmd == "ADD")
 				add_contact(&pb);
-				break;
-			case "EXIT" :
-				end = 1;
-				break;
-			default :
-				cout << "Expected commands:" << std:endl;
-				cout << "    ADD    : adds a contact" << std:endl;
-				cout << "    SEARCH : searches a contact" << std:endl;
-				cout << "    EXIT   : ends program" << std:endl;
-				break;
-		};		
+			else
+			{
+				if (cmd == "EXIT")
+					end = 1;
+				else
+				{
+					std::cout << "Expected commands:" << std::endl;
+					std::cout << "    ADD    : adds a contact" << std::endl;
+					std::cout << "    SEARCH : searches a contact" << std::endl;
+					std::cout << "    EXIT   : ends program" << std::endl;
+				}
+			}
+		}
 	}
 	while (!end);
-	cout << "Bye!" << std::endl;
+	std::cout << "Bye!" << std::endl;
 	return (0);
 }
