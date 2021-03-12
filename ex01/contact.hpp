@@ -6,7 +6,7 @@
 /*   By: praclet <praclet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 08:43:31 by praclet           #+#    #+#             */
-/*   Updated: 2021/03/08 14:38:35 by praclet          ###   ########lyon.fr   */
+/*   Updated: 2021/03/10 11:09:15 by praclet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ class Contact
 		std::string underwear_color;
 		std::string darkest_secret;
 		void printDetails(void);
-		friend std::ostream& operator<<(std::ostream& os, const Contact& ct);
+		void printLine(std::ostream& os);
 };
 
 #endif

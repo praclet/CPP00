@@ -6,7 +6,7 @@
 /*   By: praclet <praclet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 10:57:52 by praclet           #+#    #+#             */
-/*   Updated: 2021/03/08 16:49:47 by praclet          ###   ########lyon.fr   */
+/*   Updated: 2021/03/10 11:20:26 by praclet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void search_contact(Phone_book *pb)
 	int i;
 	size_t j;
 	Contact	*tmp;
+	std::string	input;
 
 	if (pb->length() <=0)
 	{
@@ -73,17 +74,17 @@ void search_contact(Phone_book *pb)
 		std::cout << '|' << std::setw(10) << std::to_string(j);
 		tmp = pb->getContact(j);
 		if (tmp)
-			std::cout << *tmp;
+			tmp->printLine(std::cout);
 		std::cout << '|' << std::endl;
 	}
 	std::cout << std::setfill('-') << std::setw(45) << '-' << std::endl;
 	std::cout << "Which contact do you wish to see? > ";
-	std::cin >> i;
-	j = i;
-	if (j < pb->length())
-		pb->getContact(j)->printDetails();
-	else
+	std::cin >> input;
+	i = std::atoi(input.c_str());
+	if (!std::cin.good() || std::cin.eof() || i < 0 || i >= pb->length())
 		std::cout << "Couldn't retrieve that user!" << std::endl;
+	else
+		pb->getContact((std::size_t)i)->printDetails();
 }
 
 void usage(void)
@@ -119,6 +120,11 @@ int main(void)
 				else
 					usage();
 			}
+		}
+		if (!std::cin.good() || std::cin.eof())
+		{
+			std::cout << "Input error." << std::endl;
+			end = 1;
 		}
 	}
 	while (!end);
