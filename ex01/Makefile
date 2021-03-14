@@ -23,7 +23,7 @@ OBJS		:=	$(SRCS:.cpp=.o)
 all : $(NAME)
 
 $(NAME)	: $(OBJS)
-	$(CC) $(CFLAGS) $? -o $(NAME)
+	$(CC) $(CFLAGS) $^ -o $(NAME)
 	echo './$(NAME) completed.'
 
 fclean		: clean
