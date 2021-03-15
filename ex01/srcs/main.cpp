@@ -6,7 +6,7 @@
 /*   By: praclet <praclet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 10:57:52 by praclet           #+#    #+#             */
-/*   Updated: 2021/03/10 11:20:26 by praclet          ###   ########lyon.fr   */
+/*   Updated: 2021/03/15 10:58:26 by praclet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void search_contact(Phone_book *pb)
 {
 	int i;
 	size_t j;
-	Contact	*tmp;
+	const Contact	*tmp;
 	std::string	input;
 
 	if (pb->length() <=0)
@@ -69,7 +69,7 @@ void search_contact(Phone_book *pb)
 	std::cout << '|' << std::endl;
 	std::cout << std::setfill('-') << std::setw(45) << '-' << std::endl;
 	std::cout << std::setfill(' ') << std::right ;
-	for (std::size_t j=0;j < pb->length();j++)
+	for (j=0;j < pb->length();j++)
 	{
 		std::cout << '|' << std::setw(10) << std::to_string(j);
 		tmp = pb->getContact(j);
@@ -81,7 +81,8 @@ void search_contact(Phone_book *pb)
 	std::cout << "Which contact do you wish to see? > ";
 	std::cin >> input;
 	i = std::atoi(input.c_str());
-	if (!std::cin.good() || std::cin.eof() || i < 0 || i >= pb->length())
+	j = i;
+	if (!std::cin.good() || std::cin.eof() || i < 0 || j >= pb->length())
 		std::cout << "Couldn't retrieve that user!" << std::endl;
 	else
 		pb->getContact((std::size_t)i)->printDetails();

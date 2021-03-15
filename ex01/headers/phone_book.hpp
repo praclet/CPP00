@@ -6,7 +6,7 @@
 /*   By: praclet <praclet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 08:37:33 by praclet           #+#    #+#             */
-/*   Updated: 2021/03/15 10:31:04 by praclet          ###   ########lyon.fr   */
+/*   Updated: 2021/03/15 10:49:37 by praclet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ class Phone_book
 					Phone_book(void);
 		int			is_full() const;
 		void		add(Contact *contact);
-		Contact*	getContact(std::size_t i) const;
+		const Contact*	getContact(std::size_t i) const;
 		std::size_t	length(void) const;
 	private:
 		std::size_t		nb_contacts;

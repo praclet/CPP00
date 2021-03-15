@@ -6,7 +6,7 @@
 /*   By: praclet <praclet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 08:42:01 by praclet           #+#    #+#             */
-/*   Updated: 2021/03/15 10:34:28 by praclet          ###   ########lyon.fr   */
+/*   Updated: 2021/03/15 10:52:52 by praclet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,14 @@ void print_data(std::ostream& os, std::string str)
 		os << std::setw(10) << str;
 }
 
-void Contact::printLine(std::ostream& os)
+void Contact::printLine(std::ostream& os) const
 {
 	print_data(os, this->first_name);
 	print_data(os, this->last_name);
 	print_data(os, this->nickname);
 }
 
-void Contact::printDetails(void)
+void Contact::printDetails(void) const
 {
 	std::cout << "   First name : " << first_name << std::endl;
 	std::cout << "   Last name : " << last_name << std::endl;
