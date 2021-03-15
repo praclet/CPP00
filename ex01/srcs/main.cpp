@@ -6,7 +6,7 @@
 /*   By: praclet <praclet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 10:57:52 by praclet           #+#    #+#             */
-/*   Updated: 2021/03/15 10:58:26 by praclet          ###   ########lyon.fr   */
+/*   Updated: 2021/03/15 11:14:23 by praclet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 void add_data(std::string data_name, std::string *data)
 {
 	std::cout << "   Enter " << data_name << ": ";
-	std::cin >> *data;
+	std::getline(std::cin, *data);
 }
 
 void add_contact(Phone_book *pb)
@@ -79,7 +79,7 @@ void search_contact(Phone_book *pb)
 	}
 	std::cout << std::setfill('-') << std::setw(45) << '-' << std::endl;
 	std::cout << "Which contact do you wish to see? > ";
-	std::cin >> input;
+	std::getline(std::cin, input);
 	i = std::atoi(input.c_str());
 	j = i;
 	if (!std::cin.good() || std::cin.eof() || i < 0 || j >= pb->length())
@@ -107,7 +107,7 @@ int main(void)
 	do
 	{
 		std::cout << "What next? > ";
-		std::cin >> cmd;
+		std::getline(std::cin, cmd);
 		if (cmd == "SEARCH")
 			search_contact(&pb);
 		else
