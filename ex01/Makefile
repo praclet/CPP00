@@ -1,37 +1,54 @@
-NAME		:=	phone_book
+NAME			=	phone_book
 
-SRCS		:=	contact.cpp \
-				main.cpp
+SRCS			=	contact.cpp \
+					phone_book.cpp \
+					main.cpp
+HEADERS			=	contact.hpp \
+					phone_book.hpp
 
-CC			:=	clang++
-CFLAGS		:=	-Wall -Wextra -Werror
+SRCS_DIR		=	./srcs/
+HEADERS_DIR		=	./headers/
+OBJS_DIR		=	./objs/
+DEP_DIR			=	./dependencies/
 
-RM			:=	rm -f
+#################################################################
 
-##########################################################
+vpath				%.cpp $(SRCS_DIR)
+vpath				%.h $(HEADERS_DIR)
+vpath				%.o $(OBJS_DIR)
+vpath				%.d $(DEP_DIR)
 
-OBJS		:=	$(SRCS:.cpp=.o)
+OBJS			=	$(addprefix $(OBJS_DIR), $(SRCS:.cpp=.o))
+DEP				=	$(addprefix $(DEP_DIR), $(SRCS:.cpp=.d))
 
-.SILENT		:
-.PHONY		:	all clean fclean re
+CC				=	clang++
+CFLAGS			=	-Wall -Wextra -Werror -std=c++98
+DEPFLAGS		=	-MT $@ -MMD -MP -MF $(DEP_DIR)$*.d
 
+all				:	$(NAME)
 
-%.o: %.cpp
-	$(CC) $(FLAGS) -c $< -o $@
-	echo './$@ generated.'
+$(NAME)			:	$(OBJS) | $(OBJS_DIR)
+					$(CC) $(CFLAGS) $(DEPFLAGS) $(OBJS) -o $(NAME)
 
-all : $(NAME)
+$(OBJS_DIR)%.o	:	%.cpp $(DEP_DIR)%.d | $(DEP_DIR)
+					$(CC) ${CFLAGS} $(DEPFLAGS) -o $@ -c $<
 
-$(NAME)	: $(OBJS)
-	$(CC) $(CFLAGS) $^ -o $(NAME)
-	echo './$(NAME) completed.'
+$(DEP_DIR)		:
+					mkdir -p $(DEP_DIR)
 
-fclean		: clean
-	$(RM) $(NAME)
-	echo './$(NAME) deleted.'
+$(OBJS_DIR)		:
+					mkdir -p $(OBJS_DIR)
 
-clean		:
-	$(RM) $(OBJS)
-	echo './$(OBJS) deleted.'
+clean			:
+					rm -rf $(OBJS_DIR)
 
-re			:	fclean all
+fclean			:	clean
+					rm -rf $(DEP_DIR)
+					rm -rf $(NAME)
+
+re				:	fclean	all
+
+.PHONY			:	all clean fclean re
+
+$(DEP)			:
+include $(wildcard $(DEP))
